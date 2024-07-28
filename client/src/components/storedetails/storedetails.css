@@ -1,0 +1,13 @@
+.store-detail-container {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.card {
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.card-body {
+  text-align: center;
+}
