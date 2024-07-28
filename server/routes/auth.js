@@ -1,73 +1,67 @@
-const express = require("express");
-const Store = require("../models/Store");
-const auth = require("../middleware/auth");
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post("/", auth, async (req, res) => {
-  const { name, address } = req.body;
+router.post('/register', async (req, res) => {
+  const { name, email, password, address, role } = req.body;
   try {
-    const newStore = new Store({
-      name,
-      address,
-      owner: req.user.id,
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ msg: 'User already exists' });
+    }
+    user = new User({ name, email, password, address, role });
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    await user.save();
+
+    const payload = { user: { id: user.id, role: user.role } };
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
     });
-
-    const store = await newStore.save();
-    res.json(store);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 });
 
-router.get("/", async (req, res) => {
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const stores = await Store.find();
-    res.json(stores);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+
+    const payload = { user: { id: user.id, role: user.role } };
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/me', auth, async (req, res) => {
   try {
-    const store = await Store.findById(req.params.id);
-    if (!store) {
-      return res.status(404).json({ msg: "Store not found" });
-    }
-    res.json(store);
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
-  }
-});
-
-router.put("/:id/rate", auth, async (req, res) => {
-  const { rating } = req.body;
-  try {
-    const store = await Store.findById(req.params.id);
-    if (!store) {
-      return res.status(404).json({ msg: "Store not found" });
-    }
-    const existingRating = store.ratings.find(
-      (r) => r.user.toString() === req.user.id
-    );
-    if (existingRating) {
-      existingRating.rating = rating;
-    } else {
-      store.ratings.push({ user: req.user.id, rating });
-    }
-    store.rating =
-      store.ratings.reduce((acc, r) => acc + r.rating, 0) /
-      store.ratings.length;
-    await store.save();
-    res.json(store);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 });
 
 module.exports = router;
-
