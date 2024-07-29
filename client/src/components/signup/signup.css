@@ -1,17 +1,35 @@
 .signup-container {
-    background-color: #f5f5f5;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+  background-color: #f5f5f5;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-image: url("https://cdn.pixabay.com/photo/2016/06/02/02/38/mesh-1430108_960_720.png");
+  background-size: cover;
+}
+
+.form-control {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+button {
+  border-radius: 0;
+}
+
+#signup-btn {
+  background-color: #522258;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: #8c3061;
+    color: #fff;
   }
-  
-  .form-control {
-    border-radius: 0;
-    box-shadow: none;
-  }
-  
-  button {
-    border-radius: 0;
-  }
-  
+}
+
+.signup-form {
+  border: 2px solid #ccc;
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+}

@@ -22,11 +22,11 @@ const Login = () => {
   return (
     <Container fluid className="login-container d-flex justify-content-center align-items-center vh-100">
       <Row>
-        <Col md={12}>
-          <h2 className="text-center">Login</h2>
+        <Col className ="login-form p-5" md={12}>
+          <h2 className="text-center mb-4 text-light">Login</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label className='text-light mb-1 mt-3 '>Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
@@ -37,7 +37,7 @@ const Login = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label className='text-light mb-1 mt-3'>Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -47,12 +47,12 @@ const Login = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mt-3">
+            <Button id="login-btn" variant="primary" type="submit" className="w-100 mt-3 px-4 py-2">
               Login
             </Button>
           </Form>
-          <div className="text-center mt-3">
-            <Link to="/signup">Create an Account</Link>
+          <div className="nav-link text-center mt-3">
+            <Link className="text-decoration-none text-light" to="/signup">Don't have an account? <span style={{fontWeight: '600'}}>Sign up</span></Link>
           </div>
         </Col>
       </Row>

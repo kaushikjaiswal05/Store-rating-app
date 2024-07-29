@@ -36,11 +36,11 @@ const Signup = () => {
       className="signup-container d-flex justify-content-center align-items-center vh-100"
     >
       <Row>
-        <Col md={12}>
-          <h2 className="text-center">Sign Up</h2>
-          <Form onSubmit={handleSubmit}>
+        <Col className ="signup-form py-3 px-4" md={12}>
+          <h2 className="text-center text-light">Sign Up</h2>
+          <Form onSubmit={handleSubmit} className="p-4">
             <Form.Group controlId="formBasicName">
-              <Form.Label>Name</Form.Label>
+              <Form.Label className='text-light mb-1 mt-2'>Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter name"
@@ -52,7 +52,7 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label className='text-light mb-1 mt-2'>Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
@@ -64,7 +64,7 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label className='text-light mb-1 mt-2'>Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -76,7 +76,7 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicAddress">
-              <Form.Label>Address</Form.Label>
+              <Form.Label className='text-light mb-1 mt-2 '>Address</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter address"
@@ -87,7 +87,7 @@ const Signup = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mt-3">
+            <Button id="signup-btn" variant="primary" type="submit" className="w-100 mt-4">
               Sign Up
             </Button>
           </Form>
