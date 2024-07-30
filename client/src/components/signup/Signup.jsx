@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../AuthContextProvider";
 import "./signup.css";
 
@@ -36,11 +36,11 @@ const Signup = () => {
       className="signup-container d-flex justify-content-center align-items-center vh-100"
     >
       <Row>
-        <Col className ="signup-form py-3 px-4" md={12}>
+        <Col className="signup-form py-3 px-5" md={12}>
           <h2 className="text-center text-light">Sign Up</h2>
           <Form onSubmit={handleSubmit} className="p-4">
             <Form.Group controlId="formBasicName">
-              <Form.Label className='text-light mb-1 mt-2'>Name</Form.Label>
+              <Form.Label className="text-light mb-1 mt-2">Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter name"
@@ -52,7 +52,9 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
-              <Form.Label className='text-light mb-1 mt-2'>Email address</Form.Label>
+              <Form.Label className="text-light mb-1 mt-2">
+                Email address
+              </Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
@@ -64,7 +66,7 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
-              <Form.Label className='text-light mb-1 mt-2'>Password</Form.Label>
+              <Form.Label className="text-light mb-1 mt-2">Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -76,7 +78,7 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicAddress">
-              <Form.Label className='text-light mb-1 mt-2 '>Address</Form.Label>
+              <Form.Label className="text-light mb-1 mt-2 ">Address</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter address"
@@ -87,9 +89,21 @@ const Signup = () => {
               />
             </Form.Group>
 
-            <Button id="signup-btn" variant="primary" type="submit" className="w-100 mt-4">
+            <Button
+              id="signup-btn"
+              variant="primary"
+              type="submit"
+              className="w-100 mt-4"
+            >
               Sign Up
             </Button>
+            <div className="nav-link text-center mt-3">
+              <Link className="text-decoration-none text-light" to="/">
+                Go back to{" "}
+                <span style={{ fontWeight: "600" }}>Login</span>
+                {" "}Page
+              </Link>
+            </div>
           </Form>
         </Col>
       </Row>
